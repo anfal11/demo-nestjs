@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
     "target": "ES2017",
     "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,  // Add this line
+    "emitDecoratorMetadata": true      // Optional but recommended for NestJS
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
