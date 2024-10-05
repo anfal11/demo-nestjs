@@ -14,8 +14,12 @@ WORKDIR /home/node
 COPY --chown=node:node package*.json ./
 RUN npm ci
 
-# Copy application code, generate Prisma client, and build the app
-COPY --chown=node:node . .
+# Copy application code
+COPY --chown=node:node src ./src
+COPY --chown=node:node prisma ./prisma  # If using Prisma
+COPY --chown=node:node .env .  # If you have a .env file
+
+# Generate Prisma client and build the app
 RUN npx prisma generate \
     && npm run build \
     && npm prune --omit=dev
@@ -41,4 +45,4 @@ RUN chmod -R 500 dist \
     && find dist -type f -exec chmod 400 {} \;
 
 # Run the application
-CMD ["node", "dist/main.js"] 
+CMD ["node", "dist/main.js"]
