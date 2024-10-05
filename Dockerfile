@@ -46,10 +46,6 @@
 
 # Multi-stage build to separate build dependencies from the production image
 
-# Multi-stage build to separate build dependencies from the production image
-
-# Multi-stage build to separate build dependencies from the production image
-
 # Stage 1: Builder
 FROM node:20-alpine AS builder
 
@@ -64,7 +60,7 @@ WORKDIR /home/node
 COPY --chown=node:node package*.json ./
 RUN npm ci
 
-# Copy application code, including tsconfig.json
+# Copy application code, including tsconfig.json and src directory
 COPY --chown=node:node . .
 
 # Debug: List contents of the working directory
@@ -73,14 +69,11 @@ RUN echo "Contents of /home/node:" && ls -la
 # Debug: Display contents of tsconfig.json
 RUN echo "Contents of tsconfig.json:" && cat tsconfig.json
 
-# Debug: List contents of the root directory
-RUN echo "Contents of root directory:" && ls -la
+# Debug: List contents of src directory
+RUN echo "Contents of src directory:" && ls -la src
 
 # Debug: Display package.json scripts
 RUN echo "Package.json scripts:" && jq .scripts package.json
-
-# Debug: Display project structure
-RUN echo "Project structure:" && find . -maxdepth 3 -type d
 
 # Generate Prisma client, build the app, and prune dev dependencies
 RUN npx prisma generate \
