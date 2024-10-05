@@ -15,8 +15,8 @@ COPY --chown=node:node package*.json ./
 RUN npm ci
 
 # Copy application code
-COPY --chown=node:node src ./src
-COPY --chown=node:node prisma ./prisma  
+COPY --chown=node:node ./src ./src  
+COPY --chown=node:node ./prisma ./prisma  
 COPY --chown=node:node .env .  
 
 # Generate Prisma client and build the app
