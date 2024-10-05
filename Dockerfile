@@ -44,6 +44,8 @@
 # CMD ["node", "dist/main.js"] 
 # Multi-stage build to separate build dependencies from the production image
 
+# Multi-stage build to separate build dependencies from the production image
+
 # Stage 1: Builder
 FROM node:20-alpine AS builder
 
@@ -58,8 +60,10 @@ WORKDIR /home/node
 COPY --chown=node:node package*.json ./
 RUN npm ci
 
-# Copy application code, generate Prisma client, and build the app
+# Copy application code, including tsconfig.json
 COPY --chown=node:node . .
+
+# Generate Prisma client, build the app, and prune dev dependencies
 RUN npx prisma generate \
     && npm run build \
     && npm prune --omit=dev
