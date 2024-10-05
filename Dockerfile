@@ -45,6 +45,8 @@
 
 # Multi-stage build to separate build dependencies from the production image
 
+# Multi-stage build to separate build dependencies from the production image
+
 # Stage 1: Builder
 FROM node:20-alpine AS builder
 
@@ -71,9 +73,6 @@ RUN echo "Contents of tsconfig.json:" && cat tsconfig.json
 
 # Debug: List contents of src directory
 RUN echo "Contents of src directory:" && ls -la src
-
-# Debug: Display package.json scripts
-RUN echo "Package.json scripts:" && jq .scripts package.json
 
 # Generate Prisma client, build the app, and prune dev dependencies
 RUN npx prisma generate \
