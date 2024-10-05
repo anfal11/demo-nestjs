@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "target": "ES2017",
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,  // Enable experimental decorators
-    "emitDecoratorMetadata": true,    // Enable metadata for decorators
-    "outDir": "./dist"
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

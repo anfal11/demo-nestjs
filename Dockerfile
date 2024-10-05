@@ -88,4 +88,4 @@ RUN chmod -R 500 dist \
     && find dist -type f -exec chmod 400 {} \;
 
 # Run the application
-CMD ["node", "dist/server.js"]
+CMD ["node", "dist/main.js"] 
