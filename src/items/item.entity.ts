@@ -1,4 +1,4 @@
 export class Item {
-  id: number;
-  name: string;
+  id: number = 0; // Default value
+  name: string = ''; // Default value
 }
