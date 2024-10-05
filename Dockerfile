@@ -42,6 +42,8 @@
 
 # # Run the application
 # CMD ["node", "dist/main.js"] 
+
+
 # Multi-stage build to separate build dependencies from the production image
 
 # Multi-stage build to separate build dependencies from the production image
@@ -57,11 +59,12 @@ USER node
 WORKDIR /home/node
 
 # Copy package files and install dependencies
-COPY --chown=node:node package*.json ./
+COPY --chown=node:node package*.json ./ 
 RUN npm ci
 
-# Copy application code, including tsconfig.json and src directory
-COPY --chown=node:node . .
+# Copy application code, explicitly including tsconfig.json and src directory
+COPY --chown=node:node tsconfig.json ./ 
+COPY --chown=node:node src/ ./src
 
 # Debug: List contents of the working directory
 RUN echo "Contents of /home/node:" && ls -la
@@ -97,7 +100,7 @@ RUN addgroup -g 1001 -S appgroup && \
 WORKDIR /app
 
 # Copy only the necessary artifacts from the builder stage
-COPY --from=builder --chown=appuser:appgroup /home/node/package*.json ./
+COPY --from=builder --chown=appuser:appgroup /home/node/package*.json ./ 
 COPY --from=builder --chown=appuser:appgroup /home/node/node_modules/ ./node_modules/
 COPY --from=builder --chown=appuser:appgroup /home/node/dist/ ./dist/
 
